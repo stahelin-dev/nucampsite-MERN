@@ -9,7 +9,7 @@ const favoriteRouter = express.Router();
 favoriteRouter
   .route("/")
   .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
-  .get(cors.cors, (req, res, next) => {
+  .get(cors.cors, authenticate.verifyUser, (req, res, next) => {
     Favorite.find({ user: req.user._id })
       .populate("user")
       .populate("campsites")
